@@ -1,124 +1,319 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Laser Acero 430 · Color por temple</title>
+<title>Laser Color Studio</title>
 <style>
-:root{--bg:#f5f4f0;--card:#fff;--tx:#1d1d1b;--mut:#6b6a66;--ac:#e8590c;--bd:#ddd9d0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#161615;--card:#222221;--tx:#f0eee8;--mut:#9a988f;--bd:#383835}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.4 system-ui,sans-serif}
-header{padding:14px 18px;border-bottom:1px solid var(--bd);display:flex;gap:10px;align-items:center;flex-wrap:wrap}h1{margin:0;font-size:17px;flex:1}h1 span{color:var(--ac)}
-nav button{width:auto;margin:0 0 0 6px;padding:7px 12px}
-main{display:grid;grid-template-columns:310px 1fr;gap:14px;padding:14px;max-width:1250px;margin:auto}
-@media(max-width:800px){main{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;min-width:0}
-label{display:block;font-size:12px;color:var(--mut);margin:9px 0 2px}label b{color:var(--tx);float:right}
-input[type=range],select,input[type=number],input[type=text]{width:100%}
-select,input[type=number],input[type=text]{padding:5px;border-radius:6px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
-button{background:var(--ac);color:#fff;border:0;border-radius:6px;padding:9px 12px;font:inherit;cursor:pointer;width:100%;margin-top:8px}
-button.sec{background:transparent;color:var(--tx);border:1px solid var(--bd)}
-#view{display:grid;place-items:center;min-height:260px;background:repeating-conic-gradient(#8883 0 25%,transparent 0 50%) 0 0/16px 16px;border-radius:8px;overflow:auto}
-canvas{max-width:100%;height:auto}
-.tw{overflow-x:auto;margin-top:10px}table{border-collapse:collapse;width:100%;font-size:12px}td,th{padding:3px;border-bottom:1px solid var(--bd);text-align:left}
-td input{width:62px;padding:3px}td input[type=color]{width:38px;height:26px;padding:0;border:0}td input.nm{width:90px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.note{font-size:12px;color:var(--mut);margin-top:8px}
-#cal{display:none}
+:root{--bg:#0d0e10;--p:#16171a;--p2:#1e1f23;--tx:#eceae4;--mut:#8b8982;--ac:#ff6a1a;--bd:#2a2b30;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#e9e7e1;--p:#fff;--p2:#f2f0eb;--tx:#1d1d1b;--mut:#6b6a66;--bd:#d6d2c8}}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--tx);font:12.5px/1.35 system-ui,sans-serif;overflow:hidden;display:flex;flex-direction:column}
+header{height:48px;flex:none;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--bd);background:var(--p)}
+h1{margin:0;font-size:14px;letter-spacing:.16em;white-space:nowrap}h1 span{color:var(--ac)}#stt{flex:1;color:var(--ac);font-size:11px;min-width:90px;white-space:nowrap}
+header label{display:flex;gap:5px;align-items:center;margin:0;font-size:11.5px;color:var(--tx);white-space:nowrap}
+#app{flex:1;min-height:0;display:grid;grid-template-columns:268px minmax(0,1fr) 306px}
+aside{overflow:auto;padding:10px 12px;background:var(--p)}#L{border-right:1px solid var(--bd)}#R{border-left:1px solid var(--bd)}
+details{border-bottom:1px solid var(--bd);padding:6px 0}summary{cursor:pointer;font-size:10px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;padding:3px 0}
+label{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin:5px 0 1px}label b{color:var(--tx);font-weight:500}
+input[type=range]{width:100%;accent-color:var(--ac);margin:0}
+select,input[type=number],input[type=text]{width:100%;padding:4px 6px;border-radius:6px;border:1px solid var(--bd);background:var(--p2);color:var(--tx);font:inherit}select:disabled{opacity:.45}
+button{background:var(--ac);color:#fff;border:0;border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer;white-space:nowrap}
+button.s{background:var(--p2);color:var(--tx);border:1px solid var(--bd)}button.s:hover,button.s.on{border-color:var(--ac)}button.s.on{color:var(--ac)}
+.seg{display:flex;border:1px solid var(--bd);border-radius:7px;overflow:hidden}.seg button{flex:1;border-radius:0;background:var(--p2);color:var(--mut);padding:5px}.seg button.on{background:var(--ac);color:#fff}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rw{display:flex;gap:6px;margin-top:6px}.rw button{flex:1}
+#M{display:flex;flex-direction:column;min-width:0;min-height:0}
+#C{flex:1;display:flex;gap:10px;padding:10px 10px 6px;min-width:0;min-height:0}
+.pane{flex:1;min-width:0;display:flex;flex-direction:column;border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:var(--p)}.pane.act{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac),0 0 28px #ff6a1a22}
+.pt{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;font-size:11px;color:var(--mut)}.pt b{color:var(--tx)}
+.cv{flex:1;min-height:0;position:relative;overflow:hidden;cursor:grab;touch-action:none;background:radial-gradient(circle at 50% 40%,var(--p2),var(--bg))}.pick .cv{cursor:crosshair}
+.stage{position:absolute;left:0;top:0;transform-origin:0 0;box-shadow:0 8px 30px #0008}.stage canvas{position:absolute;left:0;top:0;width:100%;height:100%}.stage .oc{display:none}
+.hnd{display:none;position:absolute;top:0;bottom:0;width:calc(24px/var(--z,1));margin-left:calc(-12px/var(--z,1));cursor:ew-resize;background:linear-gradient(var(--ac),var(--ac)) center/calc(2px/var(--z,1)) 100% no-repeat}
+.hnd::after{content:"";position:absolute;top:50%;left:0;width:100%;aspect-ratio:1;border-radius:50%;background:var(--ac);transform:translateY(-50%)}
+.hint{position:absolute;inset:0;display:grid;place-items:center;color:var(--mut);pointer-events:none;text-align:center}
+.steel{background:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,rgba(0,0,0,.05) 1px 2px),linear-gradient(120deg,#9fa3a8,#cfd2d6 45%,#a4a8ad 70%,#c4c7cb)}
+.chk{background:repeating-conic-gradient(#8885 0 25%,transparent 0 50%) 0 0/16px 16px}
+.v-A #pB,.v-B #pA{display:none}
+#vs{flex:none;display:flex;gap:8px;padding:0 10px 10px;overflow:hidden}.var{flex:1;min-width:0;background:var(--p);border:1px solid var(--bd);border-radius:8px;padding:4px;display:flex;flex-direction:column;gap:3px;color:var(--mut);font-size:10.5px}
+.var canvas{width:100%;height:62px;object-fit:contain;background:var(--bg);border-radius:4px}.var.on{border-color:var(--ac);color:var(--ac)}.var:hover{border-color:var(--ac)}
+#hg{width:100%;height:56px;background:var(--p2);border:1px solid var(--bd);border-radius:6px;margin-bottom:2px}
+.pr{display:grid;grid-template-columns:16px 24px 1fr 62px 66px 22px;gap:5px;align-items:center;padding:3px 0;border-bottom:1px solid var(--bd)}.pr.off{opacity:.42}
+.pr input[type=color]{width:24px;height:22px;border:0;padding:0;background:none}.pcn{color:var(--mut);text-align:right;font-size:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pr input[type=text]{padding:3px 5px;min-width:0}.gear{padding:2px 4px;background:none;color:var(--mut)}
+.prm{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px 0 2px}.prm label{margin:0;font-size:9px;display:block}.prm input{padding:3px}
+.prm2{display:grid;grid-template-columns:1fr auto auto;gap:6px;padding:2px 0 8px}
+.note{font-size:10.5px;color:var(--mut);margin-top:6px}#tt{margin-top:6px;font-size:11px}
+.md{position:fixed;inset:0;background:#000a;display:none;place-items:center;z-index:9}.md.on{display:grid}
+.md>div{background:var(--p);border:1px solid var(--bd);border-radius:14px;padding:20px;max-width:440px;width:92%;max-height:90vh;overflow:auto}.md h2{margin:0 0 10px;font-size:16px}.md ol{padding-left:18px;margin:0 0 12px;line-height:1.6}
+@media(max-width:980px){body{overflow:auto;height:auto}#app{display:block}#C{height:70vh}aside{overflow:visible}header{flex-wrap:wrap;height:auto;padding:8px 14px}}
 </style></head><body>
-<header><h1>Laser <span>Acero 430</span> · color por temple</h1><nav><button id="t1" onclick="tab(1)">Imagen</button><button id="t2" class="sec" onclick="tab(2)">Calibración</button></nav></header>
-
-<main id="img">
-<div class="card">
-<input type="file" id="f" accept="image/*" hidden><button onclick="f.click()">Cargar imagen</button>
-<div class="row2"><div><label>Ancho (mm)</label><input type="number" id="w" value="80"></div><div><label>Intervalo (mm)</label><input type="number" id="iv" value="0.03" step="0.005"></div></div>
-<label>Modo</label><select id="md"><option value="1">Tonos (recomendado para fotos)</option><option value="0">Color más cercano</option></select>
-<label>Tramado</label><select id="m"><option value="0">Sin tramado</option><option value="1" selected>Floyd–Steinberg</option><option value="2">Ordenado (Bayer)</option></select>
-<label>Brillo <b id="vb">0</b></label><input type="range" id="b" min="-100" max="100" value="0">
-<label>Contraste <b id="vc">0</b></label><input type="range" id="c" min="-100" max="100" value="0">
-<label><input type="checkbox" id="inv"> Invertir tonos</label>
-<button onclick="dl()">Descargar vista PNG</button>
-<button class="sec" onclick="layers()">Descargar capas + parámetros CSV</button>
-<div class="note" id="info">Cargá una imagen.</div>
-</div>
-<div class="card"><div id="view"><canvas id="o" width="1" height="1"></canvas></div>
-<div class="tw"><table id="pt"></table></div>
-<div class="note">Paleta: ajustá el color real que te salió en el acero (selector) y sus parámetros. La fila 1 es el acero sin grabar. Los valores iniciales son solo de partida: calibrá en la pestaña Calibración.</div></div>
-</main>
-
-<main id="cal">
-<div class="card">
-<div class="row2"><div><label>Potencia mín %</label><input type="number" id="p0" value="20"></div><div><label>Potencia máx %</label><input type="number" id="p1" value="60"></div>
-<div><label>Columnas</label><input type="number" id="nc" value="5" min="2" max="10"></div><div><label>Velocidad mín mm/s</label><input type="number" id="s0" value="100"></div>
-<div><label>Velocidad máx mm/s</label><input type="number" id="s1" value="1000"></div><div><label>Filas</label><input type="number" id="nr" value="5" min="2" max="10"></div>
-<div><label>Frecuencia kHz</label><input type="number" id="fr" value="40"></div><div><label>Lado cuadro mm</label><input type="number" id="sz" value="8"></div></div>
-<button onclick="grid()">Generar grilla</button>
-<button class="sec" onclick="dlg()">Descargar grilla PNG</button>
-<button class="sec" onclick="csv()">Descargar tabla CSV</button>
-<div class="note">Grabá la grilla en una chapa de 430 con relleno (el cuadro N usa la potencia/velocidad del CSV). Mirá qué colores aparecen y cargalos en la paleta. Repetí variando frecuencia o desenfoque para ampliar la gama.</div>
-</div>
-<div class="card"><div id="view"><canvas id="g" width="1" height="1"></canvas></div></div>
-</main>
-
+<header><h1>LASER <span>COLOR STUDIO</span></h1><span id="stt"></span>
+<div class="seg" style="width:120px" id="vw"><button data-v="AB" class="on">A+B</button><button data-v="A">A</button><button data-v="B">B</button></div>
+<label><input type="checkbox" id="cmp"> Comparar</label><label><input type="checkbox" id="st" checked> Sobre acero</label>
+<button class="s" id="un" title="Deshacer (Ctrl+Z)">↶</button><button class="s" id="re" title="Rehacer (Ctrl+Y)">↷</button>
+<button class="s" id="sv">Guardar</button><button class="s" id="op">Abrir</button><input type="file" id="fp" accept=".json" hidden><button class="s" id="gd">?</button><button id="hd">Render HD</button></header>
+<div id="app">
+<aside id="L">
+<details open><summary>Imagen</summary><div class="seg" id="tb"><button data-t="A" class="on">A</button><button data-t="B">B</button></div>
+<div class="rw"><button id="ld">Cargar imagen</button><button class="s" id="cpy">⇄ Copiar ajustes</button></div><input type="file" id="fi" accept="image/*" hidden></details>
+<details open><summary>Tamaño real</summary><div class="g2"><div><label>Ancho mm</label><input type="number" data-k="w" min="5"></div><div><label>DPI</label><select data-k="d"><option>127</option><option>254</option><option>300</option><option>500</option><option>600</option><option>800</option><option>1016</option></select></div></div></details>
+<details open><summary>Material y matcheo</summary>
+<select data-k="src"><option value="steel">Acero inox · temple</option><option value="ti">Titanio · anodizado</option><option value="mono">Monocromo · escala</option><option value="auto">Automática · tonos de tu imagen</option></select>
+<div class="g2"><div><label>Matcheo</label><select data-k="md"><option value="1">Tonos</option><option value="0">Color</option></select></div><div><label>Tramado</label><select data-k="m"><option value="0">Sin (formas limpias)</option><option value="1">Floyd–Steinberg</option><option value="2">Ordenado</option></select></div></div>
+<div id="au"><label>Colores máx <b data-v="k"></b></label><input type="range" data-k="k" min="2" max="16">
+<label>Tonos distintos (ΔE mín) <b data-v="fu"></b></label><input type="range" data-k="fu" min="2" max="40">
+<label>Detalle (colores chicos) <b data-v="dt"></b></label><input type="range" data-k="dt" min="0" max="100">
+<label>Intensificar color <b data-v="int"></b></label><input type="range" data-k="int" min="0" max="100">
+<div class="rw"><button class="s" id="rm">Quitar colores manuales</button></div></div>
+<label>Colores desmarcados</label><select data-k="ex"><option value="0">No grabar</option><option value="1">Reasignar al más cercano</option></select></details>
+<details open><summary>Niveles</summary><canvas id="hg"></canvas>
+<div class="g2"><div><label>Negro <b data-v="bp"></b></label><input type="range" data-k="bp" min="0" max="200"></div><div><label>Blanco <b data-v="wp"></b></label><input type="range" data-k="wp" min="55" max="255"></div></div>
+<label>Gamma (medios) <b data-v="gm"></b></label><input type="range" data-k="gm" min="0.3" max="3" step="0.05"></details>
+<details open><summary>Imagen</summary><div class="g2"><div><label>Brillo <b data-v="b"></b></label><input type="range" data-k="b" min="-100" max="100"></div><div><label>Contraste <b data-v="c"></b></label><input type="range" data-k="c" min="-100" max="100"></div>
+<div><label>Saturación <b data-v="s"></b></label><input type="range" data-k="s" min="-100" max="100"></div><div><label>Definición <b data-v="df"></b></label><input type="range" data-k="df" min="0" max="100"></div></div>
+<label>Alisar ruido (cuida bordes) <b data-v="nz"></b></label><input type="range" data-k="nz" min="0" max="3">
+<label style="justify-content:flex-start;gap:6px"><input type="checkbox" data-k="inv"> Invertir tonos</label></details>
+<details open><summary>Formas limpias</summary>
+<label>Contornos suaves (mm) <b data-v="sm"></b></label><input type="range" data-k="sm" min="0" max="0.5" step="0.01">
+<label>Borrar manchas (mm²) <b data-v="sp"></b></label><input type="range" data-k="sp" min="0" max="2" step="0.01"></details>
+</aside>
+<div id="M"><main id="C" class="v-AB"></main><div id="vs"></div></div>
+<aside id="R">
+<details open><summary>Colores del grabado</summary><div id="pal"></div>
+<div class="rw"><button class="s" id="all">Todos</button><button class="s" id="none">Ninguno</button><button class="s" id="invt">Invertir</button></div>
+<div class="rw"><button class="s" id="pk">＋ Cuentagotas: agregar color de la imagen</button></div>
+<div id="sep" class="note"></div><div id="tt"></div>
+<div class="note">Tildado = se graba. El deslizador de cada fila da más o menos superficie a ese color. En ⚙: parámetros, unir con otro color, ver solo. Los tonos de cada material son aproximados: cambialos por los de tu chapa.</div></details>
+<details open><summary>Exportar (tamaño y DPI exactos)</summary>
+<div class="g2"><button id="xp">PNG HD</button><button id="xl">Capas ZIP</button></div>
+<label style="justify-content:flex-start;gap:6px"><input type="checkbox" id="mir"> Espejar horizontal</label>
+<div class="rw"><button class="s" id="xb">A+B juntas</button><button class="s" id="cb">Grilla calibración</button></div></details>
+</aside></div>
+<div class="md" id="mg"><div><h2>Laser Color Studio</h2><ol><li>Cargá tu imagen (A y B para comparar) y poné el <b>ancho real en mm</b> y el DPI de tu láser.</li><li>Mirá las <b>variantes</b> de abajo y elegí la que más se parece a lo que buscás.</li><li>Ajustá niveles, limpieza y <b>peso</b> de cada color hasta que las formas queden netas. Tildá qué colores se graban.</li><li>Cargá tus <b>parámetros calibrados</b> (⚙), tocá <b>Render HD</b> y exportá las capas en ZIP.</li></ol><div class="note">¿No tenés tus colores calibrados? Usá “Grilla calibración” y grabá una prueba de potencia × velocidad.</div><div class="rw"><button id="gok">Empezar</button></div></div></div>
+<div class="md" id="mc"><div><h2>Grilla de calibración</h2><div class="g2"><div><label>Potencia mín %</label><input type="number" id="p0" value="20"></div><div><label>Potencia máx %</label><input type="number" id="p1" value="60"></div><div><label>Columnas</label><input type="number" id="nc" value="5" min="2" max="10"></div><div><label>Velocidad mín mm/s</label><input type="number" id="s0" value="100"></div><div><label>Velocidad máx mm/s</label><input type="number" id="s1" value="1000"></div><div><label>Filas</label><input type="number" id="nr" value="5" min="2" max="10"></div><div><label>Frecuencia kHz</label><input type="number" id="fr" value="40"></div><div><label>Lado cuadro mm</label><input type="number" id="sz" value="8"></div></div><div class="rw"><button class="s" id="cx">Cerrar</button><button id="cg">Descargar ZIP (PNG + CSV)</button></div></div></div>
 <script>
-const $=id=>document.getElementById(id),o=$('o'),ox=o.getContext('2d',{willReadFrequently:true});
-let img=null,idx=null,W=0,H=0,t;
-let pal=[['Sin grabar','#a9a9ad',0,0,0,0],['Dorado','#c9a24a',25,600,40,0],['Marrón','#7a4a24',30,400,40,0],['Violeta','#6a4a9a',35,300,50,0],['Azul','#2d5aa0',40,200,60,0],['Negro','#1a1a1c',60,100,80,0]];
-const hx=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)),lum=c=>.3*c[0]+.59*c[1]+.11*c[2],cl=v=>v<0?0:v>255?255:v;
-function drawPal(){$('pt').innerHTML='<tr><th>Color</th><th>Nombre</th><th>Pot %</th><th>Vel mm/s</th><th>Frec kHz</th><th>Desenf mm</th></tr>'+pal.map((r,i)=>`<tr><td><input type=color value="${r[1]}" onchange="pal[${i}][1]=this.value;run()"></td><td><input class=nm value="${r[0]}" onchange="pal[${i}][0]=this.value"></td>`+[2,3,4,5].map(k=>`<td><input type=number value="${r[k]}" ${i?'':'disabled'} onchange="pal[${i}][${k}]=+this.value"></td>`).join('')+'</tr>').join('')}
-drawPal();
-$('f').onchange=e=>{const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{img=i;run()};i.src=r.result};r.readAsDataURL(e.target.files[0])};
-['w','iv','md','m','b','c','inv'].forEach(id=>$(id).oninput=()=>{$('v'+id)&&($('v'+id).textContent=$(id).value);clearTimeout(t);t=setTimeout(run,150)});
-function tab(n){$('img').style.display=n==1?'grid':'none';$('cal').style.display=n==2?'grid':'none';$('t1').className=n==1?'':'sec';$('t2').className=n==2?'':'sec';if(n==2)grid()}
-function run(){
- if(!img)return;
- const mm=+$('w').value||80,iv=+$('iv').value||.03;
- W=Math.min(2400,Math.round(mm/iv));H=Math.round(W*img.height/img.width);
- o.width=W;o.height=H;ox.drawImage(img,0,0,W,H);
- const id=ox.getImageData(0,0,W,H),p=id.data,n=W*H,luma=$('md').value=='1',mode=+$('m').value;
- const br=+$('b').value*2.55,ct=+$('c').value,cf=259*(ct+255)/(255*(259-ct));
- const P=pal.map(r=>hx(r[1])),PW=luma?P.map(c=>{const l=lum(c);return[l,l,l]}):P;
- if(luma){let mn=255,mx=0;PW.forEach(c=>{mn=Math.min(mn,c[0]);mx=Math.max(mx,c[0])});var lo=mn,hi=mx}
- const f=new Float32Array(n*3);
- for(let i=0;i<n;i++){let r=p[i*4],g=p[i*4+1],b=p[i*4+2];
-  r=cf*(r-128)+128+br;g=cf*(g-128)+128+br;b=cf*(b-128)+128+br;
-  if(luma){let l=lum([r,g,b]);if($('inv').checked)l=255-l;l=lo+(cl(l)/255)*(hi-lo);r=g=b=l}else if($('inv').checked){r=255-r;g=255-g;b=255-b}
-  f[i*3]=r;f[i*3+1]=g;f[i*3+2]=b}
- const B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];idx=new Uint8Array(n);
- for(let y=0;y<H;y++)for(let x=0;x<W;x++){
-  const i=y*W+x;let r=f[i*3],g=f[i*3+1],b=f[i*3+2];
-  if(mode==2){const t=(B[(y&3)*4+(x&3)]/16-.5)*48;r+=t;g+=t;b+=t}
-  let k=0,bd=1e9;for(let j=0;j<PW.length;j++){const c=PW[j],d=(c[0]-r)**2+(c[1]-g)**2+(c[2]-b)**2;if(d<bd){bd=d;k=j}}
-  idx[i]=k;
-  if(mode==1){const c=PW[k],e=[r-c[0],g-c[1],b-c[2]];
-   const add=(j,w)=>{for(let q=0;q<3;q++)f[j*3+q]+=e[q]*w};
-   if(x+1<W)add(i+1,7/16);if(y+1<H){if(x>0)add(i+W-1,3/16);add(i+W,5/16);if(x+1<W)add(i+W+1,1/16)}}
- }
- for(let i=0;i<n;i++){const c=P[idx[i]];p[i*4]=c[0];p[i*4+1]=c[1];p[i*4+2]=c[2];p[i*4+3]=255}
- ox.putImageData(id,0,0);
- $('info').textContent=`${W}×${H}px · ${mm}×${(H*iv).toFixed(1)} mm · intervalo ${iv} mm`;
-}
-function save(c,name){c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click()})}
-function saveT(txt,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv'}));a.download=name;a.click()}
-function dl(){if(img)save(o,'vista-acero.png')}
-function layers(){
- if(!img)return;
- saveT('capa,nombre,color,potencia_pct,velocidad_mm_s,frecuencia_khz,desenfoque_mm,intervalo_mm\n'+pal.map((r,j)=>j?`${j},${r[0]},${r[1]},${r[2]},${r[3]},${r[4]},${r[5]},${$('iv').value}`:'').filter(Boolean).join('\n'),'parametros-capas.csv');
- pal.forEach((r,j)=>{if(!j)return;
-  const l=document.createElement('canvas');l.width=W;l.height=H;const x=l.getContext('2d'),d=x.createImageData(W,H);
-  for(let i=0;i<W*H;i++){const v=idx[i]==j?0:255;d.data[i*4]=d.data[i*4+1]=d.data[i*4+2]=v;d.data[i*4+3]=255}
-  x.putImageData(d,0,0);setTimeout(()=>save(l,`capa-${j}-${r[0]}.png`),j*300)});
-}
-let cells=[];
-function grid(){
- const nc=+$('nc').value,nr=+$('nr').value,sz=+$('sz').value,P0=+$('p0').value,P1=+$('p1').value,S0=+$('s0').value,S1=+$('s1').value,fr=$('fr').value;
- const px=12,g=$('g'),x=g.getContext('2d'),gap=4,lab=4;
- g.width=Math.round((nc*(sz+gap)+gap)*px);g.height=Math.round((nr*(sz+gap+lab)+gap)*px);
- x.fillStyle='#fff';x.fillRect(0,0,g.width,g.height);x.fillStyle='#000';x.font=`${lab*px*.7}px sans-serif`;
- cells=[];let n=1;
- for(let r=0;r<nr;r++)for(let c=0;c<nc;c++){
-  const p=P0+(P1-P0)*c/(nc-1),s=S0+(S1-S0)*r/(nr-1),X=(gap+c*(sz+gap))*px,Y=(gap+r*(sz+gap+lab))*px;
-  x.fillRect(X,Y,sz*px,sz*px);x.fillText(n,X,Y+(sz+lab*.8)*px);
-  cells.push([n++,Math.round(p),Math.round(s),fr]);
- }
-}
-function dlg(){save($('g'),'grilla-calibracion.png')}
-function csv(){saveT('cuadro,potencia_pct,velocidad_mm_s,frecuencia_khz\n'+cells.map(c=>c.join(',')).join('\n'),'grilla-calibracion.csv')}
+const cl=v=>v<0?0:v>255?255:v,hx=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)),hex=c=>'#'+c.map(v=>Math.round(v).toString(16).padStart(2,'0')).join(''),lum=c=>.3*c[0]+.59*c[1]+.11*c[2],tick=()=>new Promise(r=>setTimeout(r,0));
+const LIN=new Float32Array(256).map((_,i)=>{const v=i/255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}),ft=t=>t>.008856?Math.cbrt(t):7.787*t+16/116,c8=v=>v<-127?-127:v>127?127:Math.round(v);
+function l2(r,g,b,o,j,sc){r=LIN[cl(r)+.5|0];g=LIN[cl(g)+.5|0];b=LIN[cl(b)+.5|0];const fx=ft((r*.4124+g*.3576+b*.1805)/.95047),fy=ft(r*.2126+g*.7152+b*.0722),fz=ft((r*.0193+g*.1192+b*.9505)/1.08883),L=116*fy-16;o[j]=sc?c8((L-50)*2.55):L;o[j+1]=sc?c8(500*(fx-fy)):500*(fx-fy);o[j+2]=sc?c8(200*(fy-fz)):200*(fy-fz)}
+const lh=(h,sc)=>{const c=hx(h),o=[0,0,0];l2(c[0],c[1],c[2],o,0,0);return sc?[(o[0]-50)*2.55,o[1],o[2]]:o},d3=(a,b)=>(a[0]-b[0])**2+(a[1]-b[1])**2+(a[2]-b[2])**2;
+const vib=(h,a)=>{const c=hx(h),l=lum(c),mx=Math.max(...c),mn=Math.min(...c),sat=mx?(mx-mn)/mx:0,f=1+a*1.6*(1-sat);return hex(c.map(v=>cl(l+(v-l)*f)))};
+const Z=a=>a.map(r=>[r[0],r[1],0,0,0,0,r[2]||0]);
+const STEEL=Z([['Acero natural','#b9bcc0',1],['Paja','#d9c27c'],['Dorado','#c9a23c'],['Bronce','#8a5a2b'],['Púrpura','#6b3f8c'],['Azul violeta','#3f4aa0'],['Azul','#2a64b5'],['Azul claro','#6fa3d6'],['Gris oscuro','#3a3a40'],['Negro','#0e0e10']]);
+const TI=Z([['Natural','#a7a9ac',1],['Bronce','#a9784a'],['Dorado','#d4b04a'],['Magenta','#b4458f'],['Violeta','#6a4aa8'],['Azul','#2f5fc4'],['Celeste','#46b4d8'],['Verde','#4cae7e'],['Verde amarillo','#b9c64f']]);
+const MONO=Z([['Sin grabar','#e8e8e8',1],['Gris 1','#bdbdbd'],['Gris 2','#8f8f8f'],['Gris 3','#626262'],['Gris 4','#383838'],['Negro','#111111']]);
+const mk=a=>a.map(r=>({n:r[0],h:r[1],p:r[2],v:r[3],f:r[4],d:r[5],ng:r[6]||0,inc:true,mg:-1,w:0}));
+const mkP=()=>({steel:mk(STEEL),ti:mk(TI),mono:mk(MONO),auto:[]});
+const def=()=>({w:80,d:254,src:'steel',md:1,m:0,df:30,nz:1,bp:0,wp:255,gm:1,b:0,c:0,s:0,inv:0,sm:.12,sp:.05,k:8,fu:12,dt:50,int:25,ex:0});
+const rs=(pal,j)=>{let d=0;while(pal[j].mg>=0&&d++<16)j=pal[j].mg;return j};
+function blur(f,W,H,r){const t=new Float32Array(W*H),w=2*r+1,cx=(v,m)=>v<0?0:v>m?m:v;
+ for(let c=0;c<3;c++){for(let y=0;y<H;y++){const o=y*W;let s=0;for(let x=-r;x<=r;x++)s+=f[(o+cx(x,W-1))*4+c];for(let x=0;x<W;x++){t[o+x]=s/w;s+=f[(o+cx(x+r+1,W-1))*4+c]-f[(o+cx(x-r,W-1))*4+c]}}
+  for(let x=0;x<W;x++){let s=0;for(let y=-r;y<=r;y++)s+=t[cx(y,H-1)*W+x];for(let y=0;y<H;y++){f[(y*W+x)*4+c]=s/w;s+=t[cx(y+r+1,H-1)*W+x]-t[cx(y-r,H-1)*W+x]}}}}
+function snn(f,W,H){const o=f.slice(),Q=[[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0]].map(([x,y])=>(y*W+x)*4);
+ for(let y=2;y<H-2;y++)for(let x=2;x<W-2;x++){const i=(y*W+x)*4,r=f[i],g=f[i+1],b=f[i+2];let sr=r,sg=g,sb=b;
+  for(let k=0;k<12;k++){const a=i+Q[k],c=i-Q[k],ar=f[a]-r,ag=f[a+1]-g,ab=f[a+2]-b,cr=f[c]-r,cg=f[c+1]-g,cb=f[c+2]-b,q=ar*ar+ag*ag+ab*ab<cr*cr+cg*cg+cb*cb?a:c;sr+=f[q];sg+=f[q+1];sb+=f[q+2]}
+  o[i]=sr/13;o[i+1]=sg/13;o[i+2]=sb/13}return o}
+function prep(X,p){const{W,H,set:s}=X,n=W*H,ppm=W/s.w,A=new Uint8Array(n),lut=new Uint8ClampedArray(256),br=s.b*2.55,cf=259*(s.c+255)/(255*(259-s.c)),bp=s.bp,wp=Math.max(bp+5,s.wp),sa=1+s.s/100;
+ for(let v=0;v<256;v++){let x=(cf*(v-128)+128+br-bp)/(wp-bp);x=Math.pow(Math.min(1,Math.max(0,x)),1/s.gm)*255;lut[v]=s.inv?255-x:x}
+ for(let i=0;i<n;i++){const j=i*4;A[i]=p[j+3]>10;let r=lut[p[j]],g=lut[p[j+1]],b=lut[p[j+2]];if(sa!=1){const l=.3*r+.59*g+.11*b;r=l+(r-l)*sa;g=l+(g-l)*sa;b=l+(b-l)*sa}p[j]=r;p[j+1]=g;p[j+2]=b}
+ if(s.df>0&&W>8){const g=p.slice();blur(g,W,H,Math.max(1,Math.round(ppm*.1)));const a=s.df/50;for(let i=0;i<n;i++){const j=i*4;p[j]+=a*(p[j]-g[j]);p[j+1]+=a*(p[j+1]-g[j+1]);p[j+2]+=a*(p[j+2]-g[j+2])}}
+ let q=p;if(W>8)for(let k=0;k<s.nz;k++)q=snn(q,W,H);
+ const hist=new Uint32Array(256);for(let i=0;i<n;i++)hist[lum([q[i*4],q[i*4+1],q[i*4+2]])+.5|0]++;
+ X.f=q;X.A=A;X.hist=hist;X.lab=null}
+function labX(X){if(X.lab)return;const n=X.W*X.H,f=X.f,lab=new Int8Array(n*3);for(let i=0;i<n;i++)l2(f[i*4],f[i*4+1],f[i*4+2],lab,i*3,1);X.lab=lab}
+function pal2(X){const s=X.set;if(s.src!='auto')return;labX(X);const n=X.W*X.H,lab=X.lab,f=X.f,st=Math.max(1,Math.floor(n/16000)),S=[],R=[];
+ for(let i=0;i<n;i+=st){S.push([lab[i*3]/2.55+50,lab[i*3+1],lab[i*3+2]]);R.push([f[i*4],f[i*4+1],f[i*4+2]])}
+ const T2=s.fu*s.fu,minN=S.length*(.004*(1-s.dt/100)+.0003),near=(v,C)=>{let m=1e12;for(const c of C){const d=d3(v,c);if(d<m)m=d}return m};
+ let C=[S[0].slice()],G=[];const B=[];
+ for(let round=0;round<4;round++){
+  while(C.length<s.k){let bi=-1,bd=T2;S.forEach((v,j)=>{const m=near(v,C);if(m>bd&&(!B.length||near(v,B)>=T2)){bd=m;bi=j}});if(bi<0)break;C.push(S[bi].slice())}
+  for(let it=0;it<8;it++){G=C.map(()=>({l:[0,0,0],r:[0,0,0],n:0}));
+   S.forEach((v,j)=>{let bi=0,bd=1e12;C.forEach((c,q)=>{const d=d3(v,c);if(d<bd){bd=d;bi=q}});const g=G[bi];for(let q=0;q<3;q++){g.l[q]+=v[q];g.r[q]+=R[j][q]}g.n++});
+   G=G.filter(g=>g.n>0);G.forEach(g=>{g.l=g.l.map(v=>v/g.n);g.r=g.r.map(v=>v/g.n)});C=G.map(g=>g.l)}
+  const mg=(a,b)=>{const t=G[a].n+G[b].n;G[a]={l:G[a].l.map((v,q)=>(v*G[a].n+G[b].l[q]*G[b].n)/t),r:G[a].r.map((v,q)=>(v*G[a].n+G[b].r[q]*G[b].n)/t),n:t};G.splice(b,1)};
+  for(;;){if(G.length<=2)break;let bi=0,bj=1,bd=1e9;for(let i=0;i<G.length;i++)for(let j=i+1;j<G.length;j++){const d=d3(G[i].l,G[j].l);if(d<bd){bd=d;bi=i;bj=j}}
+   if(bd<T2){mg(bi,bj);continue}
+   let sm=0;G.forEach((g,i)=>{if(g.n<G[sm].n)sm=i});if(G[sm].n<minN){B.push(G[sm].l);let nj=-1,nd=1e9;G.forEach((g,j)=>{if(j!=sm){const d=d3(g.l,G[sm].l);if(d<nd){nd=d;nj=j}}});mg(Math.min(sm,nj),Math.max(sm,nj));continue}break}
+  C=G.map(g=>g.l);if(G.length>=s.k)break}
+ G.sort((a,b)=>b.l[0]-a.l[0]);const man=X.pals.auto.filter(c=>c.man),old=X.pals.auto.filter(c=>!c.man),same=old.length==G.length;
+ X.pals.auto=G.map((g,j)=>{const h0=hex(g.r),h=vib(h0,s.int/100);return same?{...old[j],h0,h}:{n:'Color '+(j+1),h0,h,p:0,v:0,f:0,d:0,ng:0,inc:true,mg:-1,w:0}}).concat(man.map(c=>same?c:{...c,mg:-1}))}
+const reint=X=>X.pals.auto.forEach(c=>{if(c.h0)c.h=vib(c.h0,X.set.int/100)});
+function bb(a,t,W,H,r){const w=2*r+1,cx=(v,m)=>v<0?0:v>m?m:v;
+ for(let y=0;y<H;y++){const o=y*W;let s=0;for(let x=-r;x<=r;x++)s+=a[o+cx(x,W-1)];for(let x=0;x<W;x++){t[o+x]=s/w;s+=a[o+cx(x+r+1,W-1)]-a[o+cx(x-r,W-1)]}}
+ for(let x=0;x<W;x++){let s=0;for(let y=-r;y<=r;y++)s+=t[cx(y,H-1)*W+x];for(let y=0;y<H;y++){a[y*W+x]=s/w;s+=t[cx(y+r+1,H-1)*W+x]-t[cx(y-r,H-1)*W+x]}}}
+async function cs(idx,W,H,r,K,tk,stop){if(!r)return idx;const n=W*H,pr=new Uint8Array(K);for(let i=0;i<n;i++)pr[idx[i]]=1;if(pr.reduce((a,b)=>a+b,0)<2)return idx;
+ const m=new Float32Array(n),t=new Float32Array(n),best=new Float32Array(n).fill(-1),out=new Uint8Array(n);
+ for(let k=0;k<K;k++){if(!pr[k])continue;if(tk){await tk();if(stop&&stop())return null}
+  for(let i=0;i<n;i++)m[i]=idx[i]==k?1:0;bb(m,t,W,H,r);bb(m,t,W,H,r);for(let i=0;i<n;i++)if(m[i]>best[i]){best[i]=m[i];out[i]=k}}return out}
+function dsp(idx,W,H,min,K,DM){if(min<2)return;const n=W*H,lab=new Int32Array(n),st=new Int32Array(n),sz=new Int32Array(n),cc=new Uint8Array(n);
+ for(let pass=0;pass<2;pass++){lab.fill(-1);let L=0;
+ for(let i=0;i<n;i++){if(lab[i]>=0)continue;const c=idx[i];let sp=0,cn=0;st[sp++]=i;lab[i]=L;
+  while(sp){const q=st[--sp];cn++;const x=q%W;
+   if(x>0&&lab[q-1]<0&&idx[q-1]==c){lab[q-1]=L;st[sp++]=q-1}if(x<W-1&&lab[q+1]<0&&idx[q+1]==c){lab[q+1]=L;st[sp++]=q+1}
+   if(q>=W&&lab[q-W]<0&&idx[q-W]==c){lab[q-W]=L;st[sp++]=q-W}if(q<n-W&&lab[q+W]<0&&idx[q+W]==c){lab[q+W]=L;st[sp++]=q+W}}
+  sz[L]=cn;cc[L++]=c}
+ const V=new Map();for(let i=0;i<n;i++){const l=lab[i];if(sz[l]>=min)continue;let v=V.get(l);if(!v){v=new Int32Array(K);V.set(l,v)}const x=i%W;
+  if(x>0&&lab[i-1]!=l)v[idx[i-1]]++;if(x<W-1&&lab[i+1]!=l)v[idx[i+1]]++;if(i>=W&&lab[i-W]!=l)v[idx[i-W]]++;if(i<n-W&&lab[i+W]!=l)v[idx[i+W]]++}
+ const nc=new Map();V.forEach((v,l)=>{let b=-1,m=0;v.forEach((c,k)=>{const sc=c/(1+DM[cc[l]*K+k]/12);if(c>0&&sc>m){m=sc;b=k}});if(b>=0)nc.set(l,b)});if(!nc.size)break;
+ for(let i=0;i<n;i++){const l=lab[i];if(sz[l]<min){const b=nc.get(l);if(b!==undefined)idx[i]=b}}}}
+async function mapX(X,tk,stop){
+ const{W,H,set:s}=X,n=W*H,pal=X.pals[s.src],K=pal.length,ppm=W/s.w;if(!K)return null;
+ const R=pal.map((_,j)=>rs(pal,j)),re=s.ex==1&&pal.some(c=>c.inc),cand=pal.map((_,j)=>j).filter(j=>!re||pal[R[j]].inc),Fw=pal.map(c=>Math.exp(-(c.w||0)/60)),pL=pal.map(c=>lh(c.h)),DM=new Float32Array(K*K);
+ for(let i=0;i<K;i++)for(let j=0;j<K;j++)DM[i*K+j]=Math.sqrt(d3(pL[i],pL[j]));
+ let idx=new Uint8Array(n);const f=X.f;
+ if(s.md==1){const PL=pal.map(c=>lum(hx(c.h)));let lo=1e9,hi=-1e9;cand.forEach(j=>{lo=Math.min(lo,PL[j]);hi=Math.max(hi,PL[j])});const rg=Math.max(1,hi-lo),g=new Float32Array(n),B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+  for(let i=0;i<n;i++)g[i]=lo+lum([f[i*4],f[i*4+1],f[i*4+2]])/255*rg;
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const i=y*W+x;let v=g[i];if(s.m==2)v+=(B[(y&3)*4+(x&3)]/16-.5)*rg/Math.max(2,cand.length-1);
+   let k=cand[0],bd=1e12;for(const j of cand){const d=(PL[j]-v)**2*Fw[j];if(d<bd){bd=d;k=j}}idx[i]=R[k];
+   if(s.m==1){const e=v-PL[k];if(x+1<W)g[i+1]+=e*7/16;if(y+1<H){if(x>0)g[i+W-1]+=e*3/16;g[i+W]+=e*5/16;if(x+1<W)g[i+W+1]+=e/16}}}}
+ else{labX(X);const pS=pal.map(c=>lh(c.h,1)),lab=X.lab;
+  for(let i=0;i<n;i++){const L=lab[i*3],a=lab[i*3+1],b=lab[i*3+2];let k=cand[0],bd=1e9;for(const j of cand){const c=pS[j],dl=c[0]-L,da=c[1]-a,db=c[2]-b,d=(dl*dl*.1538+da*da+db*db)*Fw[j];if(d<bd){bd=d;k=j}}idx[i]=R[k]}}
+ if(tk){await tk();if(stop&&stop())return null}
+ if(s.m==0||s.md==0){const mp=Math.round(s.sp*ppm*ppm);dsp(idx,W,H,mp,K,DM);idx=await cs(idx,W,H,Math.round(s.sm*ppm),K,tk,stop);if(!idx)return null;dsp(idx,W,H,mp,K,DM)}
+ return idx}
+function paintX(X,o){const{W,H}=X,n=W*H,pal=X.pals[X.set.src],pc=pal.map(c=>hx(c.h)),cnt=new Array(pal.length).fill(0),idx=X.idx,A=X.A,solo=X.solo;
+ for(let i=0;i<n;i++){const k=idx[i],c=pc[k],on=A[i]&&pal[k].inc&&(solo<0||solo==k);if(on&&!pal[k].ng)cnt[k]++;o[i*4]=c[0];o[i*4+1]=c[1];o[i*4+2]=c[2];o[i*4+3]=on?255:0}return cnt}
+const CT=new Uint32Array(256).map((_,n)=>{let c=n;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0});
+const crc=u=>{let c=~0;for(let i=0;i<u.length;i++)c=CT[(c^u[i])&255]^(c>>>8);return ~c>>>0};
+function phys(b,dpi){const ppm=Math.round(dpi/.0254),ch=new Uint8Array(21),dv=new DataView(ch.buffer);dv.setUint32(0,9);ch.set([112,72,89,115],4);dv.setUint32(8,ppm);dv.setUint32(12,ppm);ch[16]=1;dv.setUint32(17,crc(ch.subarray(4,17)));
+ const r=new Uint8Array(b.length+21);r.set(b.subarray(0,33));r.set(ch,33);r.set(b.subarray(33),54);return r}
+function zip(files){const enc=new TextEncoder(),parts=[],cd=[];let off=0;
+ for(const f of files){const nm=enc.encode(f.name),cr=crc(f.data),len=f.data.length,L=new DataView(new ArrayBuffer(30));
+  L.setUint32(0,0x04034b50,true);L.setUint16(4,20,true);L.setUint16(6,0x0800,true);L.setUint16(12,0x21,true);L.setUint32(14,cr,true);L.setUint32(18,len,true);L.setUint32(22,len,true);L.setUint16(26,nm.length,true);parts.push(L.buffer,nm,f.data);
+  const C=new DataView(new ArrayBuffer(46));C.setUint32(0,0x02014b50,true);C.setUint16(4,20,true);C.setUint16(6,20,true);C.setUint16(8,0x0800,true);C.setUint16(14,0x21,true);C.setUint32(16,cr,true);C.setUint32(20,len,true);C.setUint32(24,len,true);C.setUint16(28,nm.length,true);C.setUint32(42,off,true);cd.push(C.buffer,nm);off+=30+nm.length+len}
+ const cs=cd.reduce((a,b)=>a+b.byteLength,0),E=new DataView(new ArrayBuffer(22));E.setUint32(0,0x06054b50,true);E.setUint16(8,files.length,true);E.setUint16(10,files.length,true);E.setUint32(12,cs,true);E.setUint32(16,off,true);
+ return new Blob([...parts,...cd,E.buffer],{type:'application/zip'})}
+
+</script>
+<script>
+const D=document,q=(s,r=D)=>r.querySelector(s),$=s=>q(s),$$=s=>[...D.querySelectorAll(s)],stt=t=>$('#stt').textContent=t;
+const VARS=[['Acero · tonos',{src:'steel',md:1,m:0}],['Acero · tramado',{src:'steel',md:1,m:1}],['Acero · color',{src:'steel',md:0,m:0}],['Titanio',{src:'ti',md:0,m:0}],['Automática',{src:'auto',md:0,m:0}],['Monocromo',{src:'mono',md:1,m:0}]];
+const LV={w:0,d:0,df:0,nz:0,bp:0,wp:0,gm:0,b:0,c:0,s:0,inv:0,k:1,fu:1,dt:1,src:1,int:2,md:2,m:2,sm:2,sp:2,ex:2};
+const PN={};let cur,picker=false,cmpOn=false;const pl=()=>cur.pals[cur.set.src];
+function mkPane(id){const el=D.createElement('div');el.className='pane';el.id='p'+id;
+ el.innerHTML=`<div class=pt><b>${id}</b><span class=inf>—</span></div><div class=cv><div class="stage steel"><canvas class=pc2></canvas><canvas class=oc></canvas><div class=hnd></div></div><div class=hint>Soltá o cargá la imagen ${id}</div></div>`;$('#C').appendChild(el);
+ const P={id,el,cvw:q('.cv',el),st:q('.stage',el),cv:q('.pc2',el),oc:q('.oc',el),hnd:q('.hnd',el),hint:q('.hint',el),inf:q('.inf',el),img:null,src:null,set:def(),pals:mkP(),open:{},solo:-1,W:0,H:0,Wt:0,dirty:9,busy:false,full:false,fitted:false,s:1,tx:0,ty:0,fit:1,cmp:50,his:[],hi:-1,palDirty:true};PN[id]=P;
+ el.addEventListener('pointerdown',()=>{if(cur!=P)sel(P.id)});el.ondragover=e=>e.preventDefault();el.ondrop=e=>{e.preventDefault();sel(P.id);rd(e.dataTransfer.files[0])};
+ const c=P.cvw;let dr=null;
+ c.onwheel=e=>{e.preventDefault();const r=c.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,ns=Math.min(60,Math.max(P.fit*.4,P.s*(e.deltaY<0?1.18:1/1.18)));P.tx=mx-(mx-P.tx)*ns/P.s;P.ty=my-(my-P.ty)*ns/P.s;P.s=ns;tr(P)};
+ c.onpointerdown=e=>{dr=[e.clientX,e.clientY,P.tx,P.ty];c.setPointerCapture(e.pointerId)};
+ c.onpointermove=e=>{if(dr){P.tx=dr[2]+e.clientX-dr[0];P.ty=dr[3]+e.clientY-dr[1];tr(P)}};
+ c.onpointerup=e=>{if(dr&&picker&&P.f&&Math.hypot(e.clientX-dr[0],e.clientY-dr[1])<4){const r=c.getBoundingClientRect(),x=Math.floor((e.clientX-r.left-P.tx)/P.s*P.W/P.cv.width),y=Math.floor((e.clientY-r.top-P.ty)/P.s*P.W/P.cv.width);
+  if(x>=0&&y>=0&&x<P.W&&y<P.H){const i=(y*P.W+x)*4,pal=P.pals[P.set.src];pal.push({n:'Manual '+(pal.filter(z=>z.man).length+1),h:hex([P.f[i],P.f[i+1],P.f[i+2]]),p:0,v:0,f:0,d:0,ng:0,inc:true,mg:-1,w:0,man:1});P.palDirty=true;edit(P,2)}}dr=null};
+ c.ondblclick=()=>fit(P);
+ P.hnd.onpointerdown=e=>{e.stopPropagation();P.hnd.setPointerCapture(e.pointerId);P.hd=1};
+ P.hnd.onpointermove=e=>{if(P.hd){const r=P.st.getBoundingClientRect();P.cmp=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100));ac(P)}};P.hnd.onpointerup=()=>P.hd=0;
+ return P}
+function ac(P){P.oc.style.display=cmpOn?'block':'none';P.hnd.style.display=cmpOn?'block':'none';P.oc.style.clipPath=`inset(0 ${100-P.cmp}% 0 0)`;P.hnd.style.left=P.cmp+'%'}
+function tr(P){P.st.style.transform=`translate(${P.tx}px,${P.ty}px) scale(${P.s})`;P.st.style.setProperty('--z',P.s);P.cv.style.imageRendering=P.oc.style.imageRendering=P.s>=3?'pixelated':'auto'}
+function fit(P){if(!P.cv.width||P.cv.width<2)return;const r=P.cvw.getBoundingClientRect(),w=P.cv.width,h=P.cv.height,s=Math.min((r.width-24)/w,(r.height-24)/h);P.fit=s;P.s=s;P.tx=(r.width-w*s)/2;P.ty=(r.height-h*s)/2;tr(P)}
+addEventListener('resize',()=>Object.values(PN).forEach(fit));
+function scaled(img,W,H){let w=img.width,h=img.height,src=img;while(w/2>W){w=Math.ceil(w/2);h=Math.ceil(h/2);const c=D.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.imageSmoothingQuality='high';x.drawImage(src,0,0,w,h);src=c}
+ const c=D.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d',{willReadFrequently:true});x.imageSmoothingQuality='high';x.drawImage(src,0,0,W,H);return{c,x}}
+/* ---------- motor sin parpadeo: se calcula fuera de pantalla y se pinta de una vez ---------- */
+function edit(P,L,noSnap){if(!P.img)return;if(P.full&&L<=2){P.full=false;L=0}P.dirty=Math.min(P.dirty,L);clearTimeout(P.tm);P.tm=setTimeout(()=>process(P),30);if(!noSnap)sn(P)}
+async function process(P){if(P.busy)return;P.busy=true;
+ try{while(P.dirty<9){const L=P.dirty;P.dirty=9;stt('Procesando…');const ab=()=>{if(P.dirty<9){P.dirty=Math.min(P.dirty,L);return true}return false};
+  const s=P.set,Wt=Math.min(4000,Math.round(s.w/25.4*s.d)),W=P.full?Wt:Math.min(1200,Wt),H=Math.round(W*P.img.height/P.img.width);P.Wt=Wt;
+  if(L<=0){P.W=W;P.H=H;const sc=scaled(P.img,W,H);P.origC=sc.c;P.ocD=true;prep(P,sc.x.getImageData(0,0,W,H).data);await tick();if(ab())continue}
+  if(L<=1){if(s.src=='auto'){pal2(P);P.palDirty=true}await tick();if(ab())continue}
+  if(L<=2){const idx=await mapX(P,tick,()=>P.dirty<9);if(!idx||ab())continue;P.idx=idx}
+  commit(P)}}
+ catch(e){stt('Sin memoria: bajá el ancho o el DPI');console.error(e)}
+ finally{P.busy=false;if(P.dirty<9)process(P)}}
+function commit(P){const W=P.W,H=P.H,x=P.cv.getContext('2d'),id=x.createImageData(W,H);P.cnt=paintX(P,id.data);
+ const chg=P.cv.width!=W||P.cv.height!=H,ow=P.cv.width;
+ if(chg){P.cv.width=W;P.cv.height=H;P.oc.width=W;P.oc.height=H;P.ocD=true}
+ x.putImageData(id,0,0);if(P.ocD){P.oc.getContext('2d').drawImage(P.origC,0,0);P.ocD=false}
+ P.st.style.width=W+'px';P.st.style.height=H+'px';P.hint.style.display='none';
+ if(!P.fitted){fit(P);P.fitted=true;ac(P)}else if(chg&&ow>1){const k=ow/W;P.s*=k;P.fit*=k;tr(P)}
+ const s=P.set,dpi=W/(s.w/25.4),sd=P.img.width/(s.w/25.4);
+ P.inf.textContent=`${s.w}×${(s.w*H/W).toFixed(0)} mm · ${W}×${H}px · ${dpi.toFixed(0)} DPI · ${W==P.Wt?'HD':'vista previa'}${sd<s.d*.8?` · ⚠ origen ~${sd.toFixed(0)} DPI`:''}`;
+ if(P==cur){rp(P.palDirty);P.palDirty=false;hg(P);stt(W==P.Wt?'HD':'Vista previa');vs()}
+ clearTimeout(P.tT);P.tT=setTimeout(()=>thumbs(P),350)}
+/* ---------- carga ---------- */
+function sel(id){cur=PN[id];ui()}
+function rd(f){if(f){const r=new FileReader();r.onload=()=>load(cur,r.result);r.readAsDataURL(f)}}
+function load(P,src){const i=new Image();i.onload=()=>{P.img=i;P.src=src;P.fitted=false;P.palDirty=true;P.cv.width=P.cv.height=1;const th=Math.round(220*i.height/i.width),sc=scaled(i,220,th);P.td=sc.x.getImageData(0,0,220,th).data;P.tw=220;P.th=th;P.his=[];P.hi=-1;edit(P,0,true);snap(P)};i.src=src}
+/* ---------- controles ---------- */
+function ui(){const s=cur.set;$$('[data-k]').forEach(e=>{const k=e.dataset.k;if(e.type=='checkbox')e.checked=!!s[k];else e.value=s[k]});$$('[data-v]').forEach(e=>e.textContent=s[e.dataset.v]);
+ $('#au').style.display=s.src=='auto'?'block':'none';q('[data-k=m]').disabled=s.md==0;$$('#tb button').forEach(b=>b.classList.toggle('on',b.dataset.t==cur.id));Object.values(PN).forEach(P=>P.el.classList.toggle('act',P==cur));rp(1);hg(cur);vs()}
+$$('[data-k]').forEach(e=>e.oninput=()=>{const k=e.dataset.k,v=e.type=='checkbox'?(e.checked?1:0):k=='src'?e.value:+e.value;cur.set[k]=v;const l=q('[data-v='+k+']');if(l)l.textContent=v;
+ if(k=='src'){cur.set.md={steel:1,mono:1,ti:0,auto:0}[v];cur.solo=-1;cur.open={};cur.palDirty=true;ui()}if(k=='md')ui();if(k=='int')reint(cur);edit(cur,LV[k])});
+$('#tb').onclick=e=>e.target.dataset.t&&sel(e.target.dataset.t);
+$('#ld').onclick=()=>$('#fi').click();$('#fi').onchange=e=>rd(e.target.files[0]);
+$('#cpy').onclick=()=>{const o=cur==PN.A?PN.B:PN.A;o.set={...cur.set};o.pals=JSON.parse(JSON.stringify(cur.pals));o.palDirty=true;if(o.img)edit(o,0)};
+$('#rm').onclick=()=>{cur.pals.auto=cur.pals.auto.filter(c=>!c.man);cur.palDirty=true;edit(cur,1)};
+$('#pk').onclick=()=>{picker=!picker;$('#pk').classList.toggle('on',picker);$('#M').classList.toggle('pick',picker)};
+$('#vw').onclick=e=>{const v=e.target.dataset.v;if(!v)return;$('#C').className='v-'+v;$$('#vw button').forEach(b=>b.classList.toggle('on',b==e.target));if(v!='AB')sel(v);setTimeout(()=>Object.values(PN).forEach(fit),30)};
+$('#st').onchange=e=>$$('.stage').forEach(c=>{c.classList.toggle('steel',e.target.checked);c.classList.toggle('chk',!e.target.checked)});
+$('#cmp').onchange=e=>{cmpOn=e.target.checked;Object.values(PN).forEach(ac)};
+$('#all').onclick=()=>{pl().forEach(c=>c.inc=true);edit(cur,cur.set.ex==0?3:2)};$('#none').onclick=()=>{pl().forEach(c=>c.inc=false);edit(cur,cur.set.ex==0?3:2)};$('#invt').onclick=()=>{pl().forEach(c=>c.inc=!c.inc);edit(cur,cur.set.ex==0?3:2)};
+/* ---------- paleta (se actualiza en el lugar, sin reconstruir) ---------- */
+function build(){const P=cur,pal=pl();$('#pal').innerHTML=pal.map((c,i)=>`<div class=pr data-r=${i}><input type=checkbox data-i=${i}><input type=color data-c=${i} value="${c.h}"><input type=text data-n=${i} value="${c.n}"><input type=range data-w=${i} min=-100 max=100 value="${c.w||0}" title="Peso: más o menos superficie"><span class=pcn id=pc${i}></span><button class=gear data-g=${i}>⚙</button></div>`+
+ (P.open[P.set.src+i]?`<div class=prm>${[['p','Pot %'],['v','mm/s'],['f','kHz'],['d','Desenf']].map(([k,l])=>`<div><label>${l}</label><input type=number data-p="${i}|${k}" value="${c[k]}"></div>`).join('')}</div><div class=prm2><select data-m=${i}><option value=-1>Unir con… (ninguno)</option>${pal.map((z,j)=>j!=i?`<option value=${j} ${c.mg==j?'selected':''}>${z.n}</option>`:'').join('')}</select><button class=s data-so=${i}>Ver solo</button>${c.man?`<button class=s data-del=${i}>✕</button>`:'<span></span>'}</div>`:'')).join('')}
+const fm=t=>{t=Math.round(t);return t>=3600?Math.floor(t/3600)+'h '+String(Math.floor(t%3600/60)).padStart(2,'0')+'m':Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};
+function upd(){const P=cur,pal=pl(),tot=(P.cnt||[]).reduce((a,b)=>a+b,0)||1,iv=P.W?P.set.w/P.W:.1;let T=0;
+ pal.forEach((c,i)=>{const r=q(`[data-r="${i}"]`);if(!r)return;const cn=(P.cnt&&P.cnt[i])||0,t=c.v>0&&!c.ng?cn*iv/c.v:0;if(c.inc&&c.mg<0)T+=t;
+  const e=q('[data-i]',r);e.checked=c.inc;r.classList.toggle('off',!c.inc||c.mg>=0);const cc=q('[data-c]',r);if(cc.value!=c.h)cc.value=c.h;
+  q('.pcn',r).textContent=c.mg>=0?'→ '+pal[rs(pal,i)].n:c.ng?'sin grabar':(cn*100/tot).toFixed(1)+'%'+(t?' · '+fm(t):'');q('.gear',r).textContent=P.solo==i?'◉':'⚙'});
+ const a=pal.map((c,i)=>[c,i]).filter(([c])=>c.inc&&c.mg<0&&!c.ng),tone=P.set.md==1,msgs=[];
+ for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++){const x=a[i][0],y=a[j][0],d=tone?Math.abs(lum(hx(x.h))-lum(hx(y.h))):Math.sqrt(d3(lh(x.h),lh(y.h)));if(d<(tone?10:8))msgs.push(x.n+' y '+y.n)}
+ $('#sep').textContent=msgs.length?`Tonos casi iguales: ${msgs.slice(0,3).join('; ')}. Se pisan: unilos o destildá uno.`:(a.length>1?'Tonos bien distintos ✓':'');
+ $('#tt').textContent=T?`Tiempo estimado ${P.id}: ${fm(T)} (relleno)`:''}
+function rp(full){if(!cur)return;if(full)build();upd()}
+$('#pal').onchange=e=>{const d=e.target.dataset,pal=pl();
+ if(d.i!=null){pal[d.i].inc=e.target.checked;edit(cur,cur.set.ex==0?3:2)}
+ else if(d.c!=null){pal[d.c].h=e.target.value;if(pal[d.c].h0)pal[d.c].h0=e.target.value;edit(cur,2)}
+ else if(d.n!=null)pal[d.n].n=e.target.value;
+ else if(d.m!=null){const i=+d.m,t=+e.target.value;pal[i].mg=t;if(t>=0&&rs(pal,t)==i)pal[t].mg=-1;edit(cur,2)}
+ else if(d.p){const[i,k]=d.p.split('|');pal[i][k]=+e.target.value;upd()}};
+$('#pal').oninput=e=>{const d=e.target.dataset;if(d.w!=null){pl()[d.w].w=+e.target.value;edit(cur,2)}};
+$('#pal').onclick=e=>{const d=e.target.dataset,pal=pl();if(d.g!=null){const k=cur.set.src+d.g;cur.open[k]=!cur.open[k];rp(1)}else if(d.so!=null){cur.solo=cur.solo==+d.so?-1:+d.so;edit(cur,3)}
+ else if(d.del!=null){const i=+d.del;pal.splice(i,1);pal.forEach(c=>{if(c.mg==i)c.mg=-1;else if(c.mg>i)c.mg--});cur.open={};cur.solo=-1;cur.palDirty=true;edit(cur,2);rp(1)}};
+/* ---------- histograma y variantes ---------- */
+function hg(P){const c=$('#hg'),x=c.getContext('2d'),w=c.width,h=c.height;x.clearRect(0,0,w,h);if(!P.hist||!P.hist.length||!P.hist.length&&!P.f)return;const hs=P.hist,mx=Math.max(...hs,1);x.fillStyle='#8a8a8a';
+ for(let i=0;i<256;i++){const bh=Math.sqrt(hs[i]/mx)*h;x.fillRect(i*w/256,h-bh,w/256+1,bh)}
+ if(P.set.md==1){const pal=P.pals[P.set.src],R=pal.map((_,j)=>rs(pal,j)),re=P.set.ex==1&&pal.some(c=>c.inc),cand=pal.map((_,j)=>j).filter(j=>!re||pal[R[j]].inc),L=cand.map(j=>lum(hx(pal[j].h))),lo=Math.min(...L),hi=Math.max(...L);
+  cand.forEach(j=>{const px=(lum(hx(pal[j].h))-lo)/Math.max(1,hi-lo)*255*w/256;x.fillStyle=pal[j].h;x.fillRect(px-3,0,6,h);x.strokeStyle='#000';x.strokeRect(px-3.5,.5,7,h-1)})}}
+$('#hg').width=560;$('#hg').height=120;
+const vsEl=$('#vs');VARS.forEach((v,i)=>{const b=D.createElement('button');b.className='var';b.innerHTML=`<canvas></canvas><span>${v[0]}</span>`;b.onclick=()=>{if(!cur.img)return;Object.assign(cur.set,v[1]);cur.solo=-1;cur.open={};cur.palDirty=true;ui();edit(cur,1)};vsEl.appendChild(b)});
+function vs(){const P=cur;VARS.forEach((v,i)=>vsEl.children[i].classList.toggle('on',P.set.src==v[1].src&&P.set.md==v[1].md&&(v[1].md==0||P.set.m==v[1].m)))}
+async function thumbs(P){if(!P.td||P!=cur)return;const my=P.W;for(let i=0;i<VARS.length;i++){if(P.dirty<9||P!=cur)return;
+  const v=VARS[i],X={W:P.tw,H:P.th,set:{...P.set,...v[1]},pals:JSON.parse(JSON.stringify(P.pals)),solo:-1};if(v[1].src=='auto')X.pals.auto=[];
+  prep(X,P.td.slice());if(v[1].src=='auto')pal2(X);X.idx=await mapX(X,null);if(!X.idx)continue;const c=vsEl.children[i].firstChild,x=c.getContext('2d');c.width=P.tw;c.height=P.th;const id=x.createImageData(P.tw,P.th);paintX(X,id.data);x.putImageData(id,0,0);await tick()}}
+/* ---------- historial ---------- */
+function snap(P){const s=JSON.stringify({set:P.set,pals:P.pals,solo:P.solo});if(P.his[P.hi]===s)return;P.his=P.his.slice(0,P.hi+1);P.his.push(s);if(P.his.length>60)P.his.shift();P.hi=P.his.length-1}
+function sn(P){clearTimeout(P.tS);P.tS=setTimeout(()=>snap(P),700)}
+function hrest(P,d){clearTimeout(P.tS);snap(P);const i=P.hi+d;if(i<0||i>=P.his.length)return;P.hi=i;const o=JSON.parse(P.his[i]);P.set=o.set;P.pals=o.pals;P.solo=o.solo;P.palDirty=true;if(P==cur)ui();P.full=false;edit(P,0,true)}
+$('#un').onclick=()=>hrest(cur,-1);$('#re').onclick=()=>hrest(cur,1);
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)){if(e.key=='z'){e.preventDefault();hrest(cur,e.shiftKey?1:-1)}else if(e.key=='y'){e.preventDefault();hrest(cur,1)}}});
+/* ---------- exportación ---------- */
+function dl(b,n){const a=D.createElement('a');a.href=URL.createObjectURL(b instanceof Blob?b:new Blob([b]));a.download=n;a.click()}
+async function png(c,dpi){return phys(new Uint8Array(await new Promise(r=>c.toBlob(r)).then(b=>b.arrayBuffer())),dpi)}
+async function hdReady(P){if(!P.img)return false;if(P.W!=P.Wt||!P.idx||P.cv.width!=P.W){P.full=true;P.dirty=Math.min(P.dirty,0);clearTimeout(P.tm);process(P)}
+ await new Promise(r=>{const iv=setInterval(()=>{if(!P.busy&&P.dirty==9){clearInterval(iv);r()}},60)});return P.W==P.Wt&&!!P.idx}
+const effDpi=P=>P.W/(P.set.w/25.4),flip=c=>{const o=D.createElement('canvas');o.width=c.width;o.height=c.height;const x=o.getContext('2d');x.translate(c.width,0);x.scale(-1,1);x.drawImage(c,0,0);return o};
+$('#hd').onclick=async()=>{if(await hdReady(cur))stt('HD listo · '+cur.W+'×'+cur.H+' px')};
+$('#xp').onclick=async()=>{const P=cur;if(!await hdReady(P))return;stt('Exportando…');dl(await png($('#mir').checked?flip(P.cv):P.cv,effDpi(P)),`${P.id}-${P.set.w}mm-${Math.round(effDpi(P))}dpi.png`);stt('HD')};
+$('#xl').onclick=async()=>{const P=cur;if(!await hdReady(P))return;const pal=pl(),dpi=effDpi(P),iv=(25.4/dpi).toFixed(4),mi=$('#mir').checked,W=P.W,H=P.H,files=[],en=new TextEncoder();
+ let t='capa,archivo,nombre,hex,potencia_pct,velocidad_mm_s,frecuencia_khz,desenfoque_mm,intervalo_mm\n',n=0;
+ for(let j=0;j<pal.length;j++){const c=pal[j];if(!c.inc||c.ng||c.mg>=0)continue;stt(`Capa ${++n}…`);await tick();
+  const l=D.createElement('canvas');l.width=W;l.height=H;const x=l.getContext('2d'),m=x.createImageData(W,H);
+  for(let y=0;y<H;y++)for(let X=0;X<W;X++){const s=y*W+(mi?W-1-X:X),v=P.idx[s]==j&&P.A[s]?0:255,o=(y*W+X)*4;m.data[o]=m.data[o+1]=m.data[o+2]=v;m.data[o+3]=255}
+  x.putImageData(m,0,0);const nm=`capa${String(n).padStart(2,'0')}-${c.n.replace(/\W+/g,'_')}.png`;files.push({name:nm,data:await png(l,dpi)});t+=`${n},${nm},${c.n},${c.h},${c.p},${c.v},${c.f},${c.d},${iv}\n`}
+ files.push({name:'vista-color.png',data:await png(mi?flip(P.cv):P.cv,dpi)},{name:'parametros.csv',data:en.encode(t)},{name:'LEEME.txt',data:en.encode(`Laser Color Studio\nTamaño: ${P.set.w} x ${(P.set.w*H/W).toFixed(2)} mm\nResolución: ${W}x${H} px a ${dpi.toFixed(1)} DPI (intervalo ${iv} mm)\nCapas: negro = grabar. Importar cada PNG al tamaño real y asignarle los parámetros de parametros.csv.\n${mi?'Espejado horizontal.\n':''}`)});
+ dl(zip(files),`${P.id}-capas-${P.set.w}mm.zip`);stt('HD')};
+$('#xb').onclick=()=>{const a=PN.A.cv,b=PN.B.cv,c=D.createElement('canvas'),g=40;c.width=a.width+g+b.width;c.height=Math.max(a.height,b.height);const x=c.getContext('2d');
+ if($('#st').checked){x.fillStyle='#b9bcc0';x.fillRect(0,0,c.width,c.height)}x.drawImage(a,0,0);x.drawImage(b,a.width+g,0);c.toBlob(z=>dl(z,'A+B.png'))};
+/* ---------- proyecto, guía, calibración ---------- */
+$('#sv').onclick=()=>dl(new Blob([JSON.stringify({v:1,A:{src:PN.A.src,set:PN.A.set,pals:PN.A.pals},B:{src:PN.B.src,set:PN.B.set,pals:PN.B.pals}})],{type:'application/json'}),'proyecto-laser.json');
+$('#op').onclick=()=>$('#fp').click();
+$('#fp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);['A','B'].forEach(id=>{const P=PN[id],d=o[id];if(!d)return;P.set={...def(),...d.set};P.pals={...mkP(),...d.pals};P.solo=-1;P.open={};if(d.src)load(P,d.src)});ui()}catch(x){stt('Proyecto inválido')}};r.readAsText(f)};
+const gd=()=>$('#mg').classList.toggle('on');$('#gd').onclick=gd;$('#gok').onclick=()=>{gd();try{localStorage.setItem('lcs','1')}catch(e){}};
+try{if(!localStorage.getItem('lcs'))gd()}catch(e){gd()}
+$('#cb').onclick=()=>$('#mc').classList.add('on');$('#cx').onclick=()=>$('#mc').classList.remove('on');
+$('#cg').onclick=async()=>{const v=k=>+$('#'+k).value,nc=v('nc'),nr=v('nr'),sz=v('sz'),px=10,gap=4,lab=4,g=D.createElement('canvas');
+ g.width=Math.round((nc*(sz+gap)+gap)*px);g.height=Math.round((nr*(sz+gap+lab)+gap)*px);const x=g.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,g.width,g.height);x.fillStyle='#000';x.font=`${lab*px*.7}px sans-serif`;
+ let t='cuadro,potencia_pct,velocidad_mm_s,frecuencia_khz\n',n=1;
+ for(let r=0;r<nr;r++)for(let c=0;c<nc;c++){const p=v('p0')+(v('p1')-v('p0'))*c/(nc-1),s=v('s0')+(v('s1')-v('s0'))*r/(nr-1),X=(gap+c*(sz+gap))*px,Y=(gap+r*(sz+gap+lab))*px;x.fillRect(X,Y,sz*px,sz*px);x.fillText(n,X,Y+(sz+lab*.8)*px);t+=`${n++},${Math.round(p)},${Math.round(s)},${v('fr')}\n`}
+ dl(zip([{name:'grilla-calibracion.png',data:await png(g,254)},{name:'grilla-calibracion.csv',data:new TextEncoder().encode(t)}]),'calibracion.zip')};
+mkPane('A');mkPane('B');cur=PN.A;ui();
+
 </script></body></html>
